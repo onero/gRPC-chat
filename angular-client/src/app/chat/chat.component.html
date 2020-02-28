@@ -1,0 +1,14 @@
+<nb-chat title="World Chat" size="medium" status="success">
+  <nb-chat-message
+    *ngFor="let message of messages"
+    [reply]="message.getMessage().getSenderUsername() !== 'Adamino'"
+    [message]="message.getMessage().getMessage()"
+    [sender]="message.getMessage().getSenderUsername()"
+  ></nb-chat-message>
+  <nb-chat-form
+    (send)="sendMessage($event.message)"
+    [showButton]="false"
+    [dropFiles]="true"
+  >
+  </nb-chat-form>
+</nb-chat>
