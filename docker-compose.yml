@@ -1,0 +1,31 @@
+version: '3'
+services:
+  backend:
+    image: adamino/grpc-chat-java-server:latest
+    command: mvn exec:java -D exec.mainClass=dk.adamino.chat.ChatServer
+    ports:
+      - 9090:9090
+    volumes:
+      - ./java-server:/chat/server
+    networks:
+      - grpcmesh
+
+  angular-client:
+    image: adamino/grpc-chat-angular-client:latest
+    depends_on:
+      - backend
+      - proxy
+    ports:
+      - 4200:80
+    networks:
+      - grpcmesh
+
+  proxy:
+    image: adamino/grpc-chat-web-proxy:latest
+    ports:
+      - 1337:1337
+    networks:
+      - grpcmesh
+
+networks:
+  grpcmesh: {}
