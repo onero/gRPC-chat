@@ -11,6 +11,10 @@ Envoy Proxy 1.x
 
 ## How to run full project
 
+To run the full project you can simply start all the required services, except for the JavaFx client with the docker-compose file.
+
+Ensure you have Docker installed. For more info look [https://www.docker.com/](https://www.docker.com/)
+
 Run server, Angular client & Web proxy
 
 ```
