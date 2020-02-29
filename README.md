@@ -19,10 +19,10 @@ docker-compose up
 
 ## Services are located at
 
-### Backend:
+### Access the Backend:
 
 [localhost:9090](http://localhost:9090/)
 
-### Angular client
+### Access the Angular client
 
 [localhost:4200](http://localhost:4200/)

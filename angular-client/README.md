@@ -1,4 +1,6 @@
-# GRPCChat
+# gRPC Angular Client
+
+This is a web client for the microservice, which communicates with the service via the Envoy proxy
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
 
