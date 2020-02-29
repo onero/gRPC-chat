@@ -23,6 +23,10 @@ docker-compose up
 
 [localhost:9090](http://localhost:9090/)
 
+### Access Envoy Proxy
+
+[localhost:1337](http://localhost:1337/)
+
 ### Access the Angular client
 
 [localhost:4200](http://localhost:4200/)
