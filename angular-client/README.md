@@ -4,6 +4,10 @@ This is a web client for the microservice, which communicates with the service v
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
 
+## Deployment
+
+The image is deployed on [Dockerhub](https://hub.docker.com/repository/docker/adamino/grpc-chat-angular-client)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
