@@ -7,6 +7,7 @@ gRPC Chat Application With Java microservice, JavaFx Client and Angular web clie
 - Angular 9
 - Java Microservice Maven 4.0.x
 - Protocol Buffers 3.2.x
+- JavaFx 1.8
 - Envoy Proxy 1.x
 
 ## How to run full project
