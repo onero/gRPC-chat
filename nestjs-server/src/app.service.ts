@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpService } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello Adamino!';
+  constructor(private readonly httpService: HttpService) { }
+
+  getRandomChuckNorrisJoke() {
+    return this.httpService.get('https://api.chucknorris.io/jokes/random');
   }
 }

@@ -8,19 +8,13 @@ import { GetRandomChatMessageRequest } from './interfaces/get-random-chat-messag
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get()
-  getHello(): string {
-    console.log('Incoming hello...');
-
-    return this.appService.getHello();
-  }
-
   @GrpcMethod('ChatService')
-  getRandomChatMessage(data: GetRandomChatMessageRequest, metadata: any): GetRandomChatMessageResponse {
+  async getRandomChatMessage(data: GetRandomChatMessageRequest, metadata: any): Promise<GetRandomChatMessageResponse> {
     console.log('Random message requested!');
+    const joke = await this.appService.getRandomChuckNorrisJoke().toPromise();
 
     return {
-      randomChatMessage: 'Yes!'
+      randomChatMessage: joke.data.value
     };
   }
 }
