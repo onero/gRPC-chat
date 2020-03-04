@@ -5,6 +5,7 @@ gRPC Chat Application With Java microservice, JavaFx Client and Angular web clie
 ## The components are
 
 - Angular 9
+- NestJS 6.10.x
 - Java Microservice Maven 4.0.x
 - Protocol Buffers 3.2.x
 - JavaFx 1.8
@@ -24,13 +25,21 @@ docker-compose up
 
 ## Services are located at
 
-### Access the Backend:
+### Access the Java Backend:
 
 [localhost:9090](http://localhost:9090/)
 
-### Access Envoy Proxy
+### Access Java Envoy Proxy
 
 [localhost:1337](http://localhost:1337/)
+
+### Access the NestJs Backend:
+
+[localhost:3000](http://localhost:3000/)
+
+### Access NestJS Envoy Proxy
+
+[localhost:1338](http://localhost:1338/)
 
 ### Access the Angular client
 
