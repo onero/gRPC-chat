@@ -13,9 +13,19 @@ type ChatServiceSendChatMessage = {
   readonly responseType: typeof chat_service_pb.ChatMessageFromServer;
 };
 
+type ChatServiceGetRandomChatMessage = {
+  readonly methodName: string;
+  readonly service: typeof ChatService;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof chat_service_pb.GetRandomChatMessageRequest;
+  readonly responseType: typeof chat_service_pb.GetRandomChatMessageResponse;
+};
+
 export class ChatService {
   static readonly serviceName: string;
   static readonly SendChatMessage: ChatServiceSendChatMessage;
+  static readonly GetRandomChatMessage: ChatServiceGetRandomChatMessage;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -51,5 +61,14 @@ export class ChatServiceClient {
 
   constructor(serviceHost: string, options?: grpc.RpcOptions);
   sendChatMessage(metadata?: grpc.Metadata): BidirectionalStream<chat_service_pb.ChatMessage, chat_service_pb.ChatMessageFromServer>;
+  getRandomChatMessage(
+    requestMessage: chat_service_pb.GetRandomChatMessageRequest,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: chat_service_pb.GetRandomChatMessageResponse|null) => void
+  ): UnaryResponse;
+  getRandomChatMessage(
+    requestMessage: chat_service_pb.GetRandomChatMessageRequest,
+    callback: (error: ServiceError|null, responseMessage: chat_service_pb.GetRandomChatMessageResponse|null) => void
+  ): UnaryResponse;
 }
 

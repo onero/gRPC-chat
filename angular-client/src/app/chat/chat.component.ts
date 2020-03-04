@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Subject, Observable, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { ChatService } from '../chat.service';
 import { ChatMessageFromServer } from 'src/proto/chat-service_pb';
 
@@ -12,10 +12,11 @@ import { ChatMessageFromServer } from 'src/proto/chat-service_pb';
 export class ChatComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   chatStream$: Subscription;
-  messages: ChatMessageFromServer[];
+  chatMessagesFromServer: ChatMessageFromServer[];
+  messageSuggestion = '';
 
   constructor(private chatService: ChatService) {
-    this.messages = [];
+    this.chatMessagesFromServer = [];
   }
 
   ngOnInit() {
@@ -26,6 +27,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  async getRandomMessage() {
+    const messageFromServer = await this.chatService.getRandomChatMessage();
+    this.messageSuggestion = messageFromServer;
+  }
+
   sendMessage(message: string) {
     if (this.chatStream$) {
       this.chatStream$.unsubscribe();
@@ -34,7 +40,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatStream$ = this.chatService.sendChatMessage(message)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(reply => {
-        this.messages.push(reply);
+        this.chatMessagesFromServer.push(reply);
       });
   }
 

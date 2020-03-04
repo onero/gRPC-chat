@@ -1,29 +1,44 @@
 version: '3'
 services:
-  backend:
+  java-backend:
     image: adamino/grpc-chat-java-server:latest
     command: mvn exec:java -D exec.mainClass=dk.adamino.chat.ChatServer
     ports:
       - 9090:9090
-    volumes:
-      - ./java-server:/chat/server
+    networks:
+      - grpcmesh
+
+  java-proxy:
+    image: adamino/grpc-chat-java-proxy:latest
+    ports:
+      - 1337:1337
+    networks:
+      - grpcmesh
+
+  nestjs-backend:
+    image: adamino/grpc-chat-nestjs-server:latest
+    command: npm run start
+    ports:
+      - 3000:3000
+    networks:
+      - grpcmesh
+
+  nestjs-proxy:
+    image: adamino/grpc-chat-nestjs-proxy:latest
+    ports:
+      - 1338:1338
     networks:
       - grpcmesh
 
   angular-client:
     image: adamino/grpc-chat-angular-client:latest
     depends_on:
-      - backend
-      - proxy
+      - java-backend
+      - java-proxy
+      - nestjs-backend
+      - nestjs-proxy
     ports:
       - 4200:80
-    networks:
-      - grpcmesh
-
-  proxy:
-    image: adamino/grpc-chat-web-proxy:latest
-    ports:
-      - 1337:1337
     networks:
       - grpcmesh
 

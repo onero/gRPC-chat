@@ -19,6 +19,15 @@ ChatService.SendChatMessage = {
   responseType: chat_service_pb.ChatMessageFromServer
 };
 
+ChatService.GetRandomChatMessage = {
+  methodName: "GetRandomChatMessage",
+  service: ChatService,
+  requestStream: false,
+  responseStream: false,
+  requestType: chat_service_pb.GetRandomChatMessageRequest,
+  responseType: chat_service_pb.GetRandomChatMessageResponse
+};
+
 exports.ChatService = ChatService;
 
 function ChatServiceClient(serviceHost, options) {
@@ -66,6 +75,37 @@ ChatServiceClient.prototype.sendChatMessage = function sendChatMessage(metadata)
     },
     cancel: function () {
       listeners = null;
+      client.close();
+    }
+  };
+};
+
+ChatServiceClient.prototype.getRandomChatMessage = function getRandomChatMessage(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(ChatService.GetRandomChatMessage, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
       client.close();
     }
   };

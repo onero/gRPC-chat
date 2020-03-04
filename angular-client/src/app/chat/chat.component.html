@@ -1,14 +1,20 @@
 <nb-chat title="World Chat" size="medium" status="success">
   <nb-chat-message
-    *ngFor="let message of messages"
-    [reply]="message.getMessage().getSenderUsername() !== 'Adamino'"
-    [message]="message.getMessage().getMessage()"
-    [sender]="message.getMessage().getSenderUsername()"
+    *ngFor="let chatMessageFromServer of chatMessagesFromServer"
+    [reply]="
+      chatMessageFromServer.getChatMessage().getSenderUsername() !== 'Adamino'
+    "
+    [message]="chatMessageFromServer.getChatMessage().getMessage()"
+    [sender]="chatMessageFromServer.getChatMessage().getSenderUsername()"
   ></nb-chat-message>
   <nb-chat-form
+  [message]="messageSuggestion"
     (send)="sendMessage($event.message)"
-    [showButton]="false"
-    [dropFiles]="true"
+    [showButton]="true"
+    [dropFiles]="false"
   >
   </nb-chat-form>
 </nb-chat>
+<button nbButton status="danger" (click)="getRandomMessage()">
+  Send random message!
+</button>
