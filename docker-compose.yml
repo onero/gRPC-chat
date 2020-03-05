@@ -17,7 +17,6 @@ services:
 
   nestjs-backend:
     image: adamino/grpc-chat-nestjs-server:latest
-    command: npm run start
     ports:
       - 3000:3000
     networks:

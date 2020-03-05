@@ -7,6 +7,6 @@ export const grpcClientOptions: ClientOptions = {
   options: {
     url: '0.0.0.0:3000',
     package: 'dk.adamino.grpc.chat',
-    protoPath: join(__dirname, './../src/proto/chat-service.proto'),
+    protoPath: join(__dirname, './proto/chat-service.proto'),
   },
 };

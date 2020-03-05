@@ -1,15 +1,18 @@
-#Stage 1 - Create cached node_modules.
-# Only rebuild layer if package.json has changed
-FROM node:12-slim as node_cache
-WORKDIR /cache/
-COPY package.json .
-RUN npm install
+# Node cache for faster builds
+FROM node:12-alpine as builder
+WORKDIR /cache
+# Prepare for package installation
+COPY ./package.json .
+# Cleanup dev dependencies
+RUN npm i --production
 
-# Run
-FROM node:12-slim
+FROM node:12-alpine
 WORKDIR /app
-COPY --from=node_cache /cache/ .
+# Ensure production files gets copies
 COPY . .
-RUN npm run build
+# Copy from builder
+COPY --from=builder ./cache/node_modules ./node_modules
+# Expose backend incoming port
 EXPOSE 3000
-CMD ["npm", "run", "start:prod"]
+# Define run command, which fires when container starts
+CMD ["node", "./dist/main.js"]

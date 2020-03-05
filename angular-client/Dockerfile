@@ -1,10 +1,9 @@
-FROM node:12-slim AS builder
-
+FROM node:12-alpine AS builder
 WORKDIR /app
-
+# Copy application
 COPY . .
-
-RUN npm i
+# Install only dependencies needed to build for production
+RUN npm i --production
 RUN npm run build --prod
 
 FROM nginx:alpine
