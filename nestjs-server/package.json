@@ -25,7 +25,7 @@
     "@nestjs/common": "^9.2.0",
     "@nestjs/core": "^6.10.14",
     "@nestjs/microservices": "^6.11.11",
-    "@nestjs/platform-express": "^6.10.14",
+    "@nestjs/platform-express": "^9.2.1",
     "google-protobuf": "^3.11.4",
     "grpc": "^1.24.9",
     "reflect-metadata": "^0.1.13",
