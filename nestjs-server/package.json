@@ -23,7 +23,7 @@
     "@grpc/proto-loader": "^0.5.3",
     "@improbable-eng/grpc-web": "^0.12.0",
     "@nestjs/common": "^9.2.0",
-    "@nestjs/core": "^6.10.14",
+    "@nestjs/core": "^9.0.5",
     "@nestjs/microservices": "^6.11.11",
     "@nestjs/platform-express": "^9.2.1",
     "google-protobuf": "^3.11.4",
